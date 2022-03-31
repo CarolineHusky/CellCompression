@@ -208,11 +208,6 @@ int main(int c, char *v[]){
 	
 	image output_black= img_new((input->w)>>2, (input->h)>>2);
 	image output_white = img_new((input->w)>>2, (input->h)>>2);
-	//output_white->w = input->w>>2;
-	//output_white->h = input->h>>2;
-	//output_white->pix = output_black->pix+((input->h)>>2);
-	 
-	//output_black->h = (input->h)>>2;
 	
     FILE *output_tiles = fopen("tiles.bin", "wb");
     
@@ -229,8 +224,6 @@ int main(int c, char *v[]){
     	
 	free(output_black);
 	free(output_white);
-    
-	//output_black->h = (input->h)>>1;
 	
 	write_ppm(output, "out.pnm");
 	free(output);

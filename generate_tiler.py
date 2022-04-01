@@ -40,7 +40,8 @@ with open("tiler.c", "w") as output:
    for variable in ("besttile", "tbred", "tbgreen", "tbblue", "twred", "twgreen", "twblue"):
     output.write("\tunsigned char %s;\n"%variable)
    output.write("\n")
-   for tilenum in range(0x39,255):
+   #for tilenum in range(0x39,255):
+   for tilenum in range(0,64):
     black_pos=[]
     white_pos=[]
     for y in range(6-yr):
@@ -55,10 +56,13 @@ with open("tiler.c", "w") as output:
     output.write("\ttbgreen = (" + "+".join(map(lambda pos: "greenplane[%s]"%(pos[1]*tilew+pos[0]), black_pos)) + ") /%d;\n"%len(black_pos))
     output.write("\ttbblue  = (" + "+".join(map(lambda pos: "blueplane[%s]"%(pos[1]*tilew+pos[0]), black_pos)) + ") /%d;\n"%len(black_pos))
     output.write("\tscore   = " + "+".join(map(lambda pos: "abs(redplane[%s]-tbred)+abs(greenplane[%s]-tbgreen)+abs(blueplane[%s]-tbblue)"%(pos[1]*6+pos[0],pos[1]*6+pos[0],pos[1]*6+pos[0]), black_pos)) + "/%d;\n\n"%len(black_pos))
-    output.write("\ttwred   = (" + "+".join(map(lambda pos: "redplane[%s]"%(pos[1]*tilew+pos[0]), white_pos)) + ") /%d;\n"%len(white_pos))
-    output.write("\ttwgreen = (" + "+".join(map(lambda pos: "greenplane[%s]"%(pos[1]*tilew+pos[0]), white_pos)) + ") /%d;\n"%len(white_pos))
-    output.write("\ttwblue  = (" + "+".join(map(lambda pos: "blueplane[%s]"%(pos[1]*tilew+pos[0]), white_pos)) + ") /%d;\n"%len(white_pos))
-    output.write("\tscore  += " + "+".join(map(lambda pos: "abs(redplane[%s]-twred)+abs(greenplane[%s]-twgreen)+abs(blueplane[%s]-twblue)"%(pos[1]*6+pos[0],pos[1]*6+pos[0],pos[1]*6+pos[0]), white_pos)) + "/%d;\n\n"%len(white_pos))
+    if len(white_pos)>0:
+        output.write("\ttwred   = (" + "+".join(map(lambda pos: "redplane[%s]"%(pos[1]*tilew+pos[0]), white_pos)) + ") /%d;\n"%len(white_pos))
+        output.write("\ttwgreen = (" + "+".join(map(lambda pos: "greenplane[%s]"%(pos[1]*tilew+pos[0]), white_pos)) + ") /%d;\n"%len(white_pos))
+        output.write("\ttwblue  = (" + "+".join(map(lambda pos: "blueplane[%s]"%(pos[1]*tilew+pos[0]), white_pos)) + ") /%d;\n"%len(white_pos))
+        output.write("\tscore  += " + "+".join(map(lambda pos: "abs(redplane[%s]-twred)+abs(greenplane[%s]-twgreen)+abs(blueplane[%s]-twblue)"%(pos[1]*6+pos[0],pos[1]*6+pos[0],pos[1]*6+pos[0]), white_pos)) + "/%d;\n\n"%len(white_pos))
+    else:
+        output.write("\ttwred=twgreen=twblue=0;\n")
     output.write("\tif(score<bestscore){\n")
     output.write("\t\tbesttile  = 0x%02x;                       bestscore = score;\n"%tilenum)
     output.write("\t\t*bred     = tbred; *bgreen   = tbgreen; *bblue    = tbblue;\n")

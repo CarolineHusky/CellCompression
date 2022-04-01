@@ -225,6 +225,8 @@ int main(int c, char *v[]){
 	free(output_black);
 	free(output_white);
 	
+	color_quant(output, 120, 0);
+	
 	write_ppm(output, "out.pnm");
 	free(output);
 	free(input);

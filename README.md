@@ -36,3 +36,7 @@ Inside the blockmap, black pixels get mapped to colour 1, white pixels to colour
 ### To see the result
 * convert the resulting out.pnm to a format supported by pygame (e.g. PNG)
 * run `demo.py`, then check the resulting `demo.png`
+
+## Inspiration
+
+This technique was partially inspired by the way the ZX spectrum encodes it's colour on it's 8x8 blocks, and by classic video game tile mapping.

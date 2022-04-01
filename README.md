@@ -16,6 +16,7 @@ Proposed palette format:
 ![Tilemap](/blocks-withsurroundings.png)
 
 The current implementation of the encoder does take into account surrounding pixels around the block for cleaner results, hence the 6x6 tiles in the input.
+
 Inside the blockmap, black pixels get mapped to colour 1, white pixels to colour 2, and grey pixels are ignored during generation of the tile
 
 ## How to use

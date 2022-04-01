@@ -1,7 +1,11 @@
 # CellCompression
+
+![Demo](/demo.png)
 Image / video compression technique using 1bpp 4x4 cells, see https://en.wikipedia.org/wiki/Color_Cell_Compression
 
 Compresses any 4x4 pixel block in 20 bits, with an additional 128 colour table per image
+
+Quality is video-gamish at best... but that's to be expected. At least it can be decoded on minimal hardware, and is seriously compact!
 
 Proposed block format: 
  * 6 bits: the tile

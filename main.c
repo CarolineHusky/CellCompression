@@ -144,15 +144,15 @@ void make_right_block(image input, int y, image output_black, image output_white
 	unsigned char *redout = malloc(sizeof(char)*5*6);
 	unsigned char *greenout = malloc(sizeof(char)*5*6);
 	unsigned char *blueout = malloc(sizeof(char)*5*6);
-	gather_pixels(input->w, y*4-1, 5, 6, input, redout, greenout, blueout);
+	gather_pixels(input->w-5, y*4-1, 5, 6, input, redout, greenout, blueout);
 	unsigned char tile = find_tile_right(
 		redout, greenout, blueout,
-		output_black->pix + y * output_black->w * 3 + (output_black->w-1) * 3,
-		output_black->pix + y * output_black->w * 3 + (output_black->w-1) * 3 + 1,
-		output_black->pix + y * output_black->w * 3 + (output_black->w-1) * 3 + 2,
-		output_white->pix + y * output_white->w * 3 + (output_white->w-1) * 3,
-		output_white->pix + y * output_white->w * 3 + (output_white->w-1) * 3 + 1,
-		output_white->pix + y * output_white->w * 3 + (output_white->w-1) * 3 + 2
+		output_black->pix + (y+1) * output_black->w * 3 - 3,
+		output_black->pix + (y+1) * output_black->w * 3 + 1 - 3,
+		output_black->pix + (y+1) * output_black->w * 3 + 2 - 3,
+		output_white->pix + (y+1) * output_white->w * 3 - 3,
+		output_white->pix + (y+1) * output_white->w * 3 + 1 - 3,
+		output_white->pix + (y+1) * output_white->w * 3 + 2 - 3
 		);
 	fputc(tile, output_tiles);
 }
@@ -177,7 +177,7 @@ void make_block(image input, int x, int y, image output_black, image output_whit
 
 void make_blocks(image input, image output_black, image output_white, FILE *output_tiles){
 	make_top_left_block(input, output_black, output_white, output_tiles);
-	for(int x=1; x < (output_black->w) -2; x++){
+	for(int x=1; x < (output_black->w) -1; x++){
 		make_top_block(input, x, output_black, output_white, output_tiles);
 	}
 	make_top_right_block(input, output_black, output_white, output_tiles);
@@ -191,7 +191,7 @@ void make_blocks(image input, image output_black, image output_white, FILE *outp
 	}
 	
 	make_bottom_left_block(input, output_black, output_white, output_tiles);
-	for(int x=1; x < (output_black->w) -2; x++){
+	for(int x=1; x < (output_black->w) -1; x++){
 		make_bottom_block(input, x, output_black, output_white, output_tiles);
 	}
 	make_bottom_right_block(input, output_black, output_white, output_tiles);
@@ -225,7 +225,7 @@ int main(int c, char *v[]){
 	free(output_black);
 	free(output_white);
 	
-	color_quant(output, 120, 0);
+	color_quant(output, 124, 0);
 	
 	write_ppm(output, "out.pnm");
 	free(output);

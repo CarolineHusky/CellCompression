@@ -10,7 +10,7 @@ with open("tiles.bin","rb") as data:
     for y in range(output.get_height()//4):
         for x in range(output.get_width()//4):
             try:
-                tile = d[x+y*(output.get_width()//4)-1]
+                tile = d[x+y*(output.get_width()//4)]
                 kx = tile&15
                 ky = tile>>4
                 for ry in range(4):

@@ -41,7 +41,7 @@ with open("tiler.c", "w") as output:
     output.write("\tunsigned char %s;\n"%variable)
    output.write("\n")
    #for tilenum in range(0x39,255):
-   for tilenum in range(0,64):
+   for tilenum in range(0,62):
     black_pos=[]
     white_pos=[]
     for y in range(6-yr):
